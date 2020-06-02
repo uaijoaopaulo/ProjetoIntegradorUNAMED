@@ -1,0 +1,748 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="bancodedados.Model.Store" Provider="Npgsql" ProviderManifestToken="9.5.13" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="comentario">
+          <Key>
+            <PropertyRef Name="id_comentario" />
+          </Key>
+          <Property Name="id_comentario" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_post" Type="int4" Nullable="false" />
+          <Property Name="id_usuarioremetente" Type="int4" Nullable="false" />
+          <Property Name="datacomentario" Type="timestamp" Nullable="false" />
+          <Property Name="comentariocontent" Type="varchar" MaxLength="8000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dadosseguranca">
+          <Key>
+            <PropertyRef Name="id_dadosseguranca" />
+          </Key>
+          <Property Name="id_dadosseguranca" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int4" Nullable="false" />
+          <Property Name="emailrecuperacao" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="telefonerecuperacao" Type="varchar" MaxLength="13" Nullable="false" />
+        </EntityType>
+        <EntityType Name="followusuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+            <PropertyRef Name="usuario_id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int4" Nullable="false" />
+          <Property Name="usuario_id_usuario" Type="int4" Nullable="false" />
+          <Property Name="datafollow" Type="timestamp" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mensagem">
+          <Key>
+            <PropertyRef Name="id_mensagem" />
+          </Key>
+          <Property Name="id_mensagem" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contentmensagem" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="visualizadomensagem" Type="bool" Nullable="false" />
+          <Property Name="datamensagem" Type="timestamp" Nullable="false" />
+        </EntityType>
+        <EntityType Name="notificacao">
+          <Key>
+            <PropertyRef Name="id_notificacao" />
+          </Key>
+          <Property Name="id_notificacao" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int4" Nullable="false" />
+          <Property Name="usuario_id_usuario" Type="int4" Nullable="false" />
+          <Property Name="ds_acao" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="dataacao" Type="timestamp" Nullable="false" />
+        </EntityType>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="id_post" />
+          </Key>
+          <Property Name="id_post" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int4" Nullable="false" />
+          <Property Name="contentpost" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="datapostagem" Type="timestamp" Nullable="false" />
+          <Property Name="lat" Type="float8" />
+          <Property Name="lon" Type="float8" />
+        </EntityType>
+        <EntityType Name="sobre">
+          <Key>
+            <PropertyRef Name="id_sobre" />
+          </Key>
+          <Property Name="id_sobre" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int4" Nullable="false" />
+          <Property Name="datanascimento" Type="timestamp" Nullable="false" />
+          <Property Name="genero" Type="varchar" MaxLength="15" />
+          <Property Name="relacionamento" Type="varchar" MaxLength="15" />
+          <Property Name="biografia" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomeusuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nicknameusuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="senhausuario" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="emailusuario" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="linkfoto" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="usuariomensagem">
+          <Key>
+            <PropertyRef Name="id_usuarioremetente" />
+            <PropertyRef Name="id_usuariodestinatario" />
+            <PropertyRef Name="id_mensagem" />
+          </Key>
+          <Property Name="id_usuarioremetente" Type="int4" Nullable="false" />
+          <Property Name="id_usuariodestinatario" Type="int4" Nullable="false" />
+          <Property Name="id_mensagem" Type="int4" Nullable="false" />
+        </EntityType>
+        <Association Name="id_mensagem">
+          <End Role="mensagem" Type="Self.mensagem" Multiplicity="1" />
+          <End Role="usuariomensagem" Type="Self.usuariomensagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mensagem">
+              <PropertyRef Name="id_mensagem" />
+            </Principal>
+            <Dependent Role="usuariomensagem">
+              <PropertyRef Name="id_mensagem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_post">
+          <End Role="post" Type="Self.post" Multiplicity="1" />
+          <End Role="comentario" Type="Self.comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="post">
+              <PropertyRef Name="id_post" />
+            </Principal>
+            <Dependent Role="comentario">
+              <PropertyRef Name="id_post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="post" Type="Self.post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuario1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="notificacao" Type="Self.notificacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="notificacao">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuario2">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="sobre" Type="Self.sobre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="sobre">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuario3">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="followusuario" Type="Self.followusuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="followusuario">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuario4">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="dadosseguranca" Type="Self.dadosseguranca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="dadosseguranca">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuariodestinatario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="usuariomensagem" Type="Self.usuariomensagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="usuariomensagem">
+              <PropertyRef Name="id_usuariodestinatario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuarioremetente">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="comentario" Type="Self.comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="comentario">
+              <PropertyRef Name="id_usuarioremetente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuarioremetente1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="usuariomensagem" Type="Self.usuariomensagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="usuariomensagem">
+              <PropertyRef Name="id_usuarioremetente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_id_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="notificacao" Type="Self.notificacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="notificacao">
+              <PropertyRef Name="usuario_id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_id_usuario1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="followusuario" Type="Self.followusuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="followusuario">
+              <PropertyRef Name="usuario_id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        
+        <EntityContainer Name="bancodedadosModelStoreContainer">
+          <EntitySet Name="comentario" EntityType="Self.comentario" Schema="public" store:Type="Tables" />
+          <EntitySet Name="dadosseguranca" EntityType="Self.dadosseguranca" Schema="public" store:Type="Tables" />
+          <EntitySet Name="followusuario" EntityType="Self.followusuario" Schema="public" store:Type="Tables" />
+          <EntitySet Name="mensagem" EntityType="Self.mensagem" Schema="public" store:Type="Tables" />
+          <EntitySet Name="notificacao" EntityType="Self.notificacao" Schema="public" store:Type="Tables" />
+          <EntitySet Name="post" EntityType="Self.post" Schema="public" store:Type="Tables" />
+          <EntitySet Name="sobre" EntityType="Self.sobre" Schema="public" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="public" store:Type="Tables" />
+          <EntitySet Name="usuariomensagem" EntityType="Self.usuariomensagem" Schema="public" store:Type="Tables" />
+          <AssociationSet Name="id_mensagem" Association="Self.id_mensagem">
+            <End Role="mensagem" EntitySet="mensagem" />
+            <End Role="usuariomensagem" EntitySet="usuariomensagem" />
+          </AssociationSet>
+          <AssociationSet Name="id_post" Association="Self.id_post">
+            <End Role="post" EntitySet="post" />
+            <End Role="comentario" EntitySet="comentario" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuario" Association="Self.id_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="post" EntitySet="post" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuario1" Association="Self.id_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="notificacao" EntitySet="notificacao" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuario2" Association="Self.id_usuario2">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="sobre" EntitySet="sobre" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuario3" Association="Self.id_usuario3">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="followusuario" EntitySet="followusuario" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuario4" Association="Self.id_usuario4">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="dadosseguranca" EntitySet="dadosseguranca" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuariodestinatario" Association="Self.id_usuariodestinatario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="usuariomensagem" EntitySet="usuariomensagem" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuarioremetente" Association="Self.id_usuarioremetente">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="comentario" EntitySet="comentario" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuarioremetente1" Association="Self.id_usuarioremetente1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="usuariomensagem" EntitySet="usuariomensagem" />
+          </AssociationSet>
+          <AssociationSet Name="usuario_id_usuario" Association="Self.usuario_id_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="notificacao" EntitySet="notificacao" />
+          </AssociationSet>
+          <AssociationSet Name="usuario_id_usuario1" Association="Self.usuario_id_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="followusuario" EntitySet="followusuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bancodedados.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="bancodedadosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="comentario" EntityType="bancodedados.Model.comentario" />
+          <EntitySet Name="dadosseguranca" EntityType="bancodedados.Model.dadosseguranca" />
+          <EntitySet Name="followusuario" EntityType="bancodedados.Model.followusuario" />
+          <EntitySet Name="mensagem" EntityType="bancodedados.Model.mensagem" />
+          <EntitySet Name="notificacao" EntityType="bancodedados.Model.notificacao" />
+          <EntitySet Name="post" EntityType="bancodedados.Model.post" />
+          <EntitySet Name="sobre" EntityType="bancodedados.Model.sobre" />
+          <EntitySet Name="usuario" EntityType="bancodedados.Model.usuario" />
+          <EntitySet Name="usuariomensagem" EntityType="bancodedados.Model.usuariomensagem" />
+          <AssociationSet Name="id_post" Association="bancodedados.Model.id_post">
+            <End Role="post" EntitySet="post" />
+            <End Role="comentario" EntitySet="comentario" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuarioremetente" Association="bancodedados.Model.id_usuarioremetente">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="comentario" EntitySet="comentario" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuario4" Association="bancodedados.Model.id_usuario4">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="dadosseguranca" EntitySet="dadosseguranca" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuario3" Association="bancodedados.Model.id_usuario3">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="followusuario" EntitySet="followusuario" />
+          </AssociationSet>
+          <AssociationSet Name="usuario_id_usuario1" Association="bancodedados.Model.usuario_id_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="followusuario" EntitySet="followusuario" />
+          </AssociationSet>
+          <AssociationSet Name="id_mensagem" Association="bancodedados.Model.id_mensagem">
+            <End Role="mensagem" EntitySet="mensagem" />
+            <End Role="usuariomensagem" EntitySet="usuariomensagem" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuario1" Association="bancodedados.Model.id_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="notificacao" EntitySet="notificacao" />
+          </AssociationSet>
+          <AssociationSet Name="usuario_id_usuario" Association="bancodedados.Model.usuario_id_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="notificacao" EntitySet="notificacao" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuario" Association="bancodedados.Model.id_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="post" EntitySet="post" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuario2" Association="bancodedados.Model.id_usuario2">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="sobre" EntitySet="sobre" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuariodestinatario" Association="bancodedados.Model.id_usuariodestinatario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="usuariomensagem" EntitySet="usuariomensagem" />
+          </AssociationSet>
+          <AssociationSet Name="id_usuarioremetente1" Association="bancodedados.Model.id_usuarioremetente1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="usuariomensagem" EntitySet="usuariomensagem" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="comentario">
+          <Key>
+            <PropertyRef Name="id_comentario" />
+          </Key>
+          <Property Name="id_comentario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_post" Type="Int32" Nullable="false" />
+          <Property Name="id_usuarioremetente" Type="Int32" Nullable="false" />
+          <Property Name="datacomentario" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="comentariocontent" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="post" Relationship="bancodedados.Model.id_post" FromRole="comentario" ToRole="post" />
+          <NavigationProperty Name="usuario" Relationship="bancodedados.Model.id_usuarioremetente" FromRole="comentario" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="dadosseguranca">
+          <Key>
+            <PropertyRef Name="id_dadosseguranca" />
+          </Key>
+          <Property Name="id_dadosseguranca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="emailrecuperacao" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="telefonerecuperacao" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="usuario" Relationship="bancodedados.Model.id_usuario4" FromRole="dadosseguranca" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="followusuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+            <PropertyRef Name="usuario_id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="usuario_id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="datafollow" Type="DateTime" Nullable="false" Precision="6" />
+          <NavigationProperty Name="usuario" Relationship="bancodedados.Model.id_usuario3" FromRole="followusuario" ToRole="usuario" />
+          <NavigationProperty Name="usuario1" Relationship="bancodedados.Model.usuario_id_usuario1" FromRole="followusuario" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="mensagem">
+          <Key>
+            <PropertyRef Name="id_mensagem" />
+          </Key>
+          <Property Name="id_mensagem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contentmensagem" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="visualizadomensagem" Type="Boolean" Nullable="false" />
+          <Property Name="datamensagem" Type="DateTime" Nullable="false" Precision="6" />
+          <NavigationProperty Name="usuariomensagem" Relationship="bancodedados.Model.id_mensagem" FromRole="mensagem" ToRole="usuariomensagem" />
+        </EntityType>
+        <EntityType Name="notificacao">
+          <Key>
+            <PropertyRef Name="id_notificacao" />
+          </Key>
+          <Property Name="id_notificacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="usuario_id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="ds_acao" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="dataacao" Type="DateTime" Nullable="false" Precision="6" />
+          <NavigationProperty Name="usuario" Relationship="bancodedados.Model.id_usuario1" FromRole="notificacao" ToRole="usuario" />
+          <NavigationProperty Name="usuario1" Relationship="bancodedados.Model.usuario_id_usuario" FromRole="notificacao" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="id_post" />
+          </Key>
+          <Property Name="id_post" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="contentpost" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="datapostagem" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="lat" Type="Double" />
+          <Property Name="lon" Type="Double" />
+          <NavigationProperty Name="comentario" Relationship="bancodedados.Model.id_post" FromRole="post" ToRole="comentario" />
+          <NavigationProperty Name="usuario" Relationship="bancodedados.Model.id_usuario" FromRole="post" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="sobre">
+          <Key>
+            <PropertyRef Name="id_sobre" />
+          </Key>
+          <Property Name="id_sobre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="datanascimento" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="genero" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="relacionamento" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="biografia" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="usuario" Relationship="bancodedados.Model.id_usuario2" FromRole="sobre" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomeusuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nicknameusuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="senhausuario" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="emailusuario" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="linkfoto" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="comentario" Relationship="bancodedados.Model.id_usuarioremetente" FromRole="usuario" ToRole="comentario" />
+          <NavigationProperty Name="dadosseguranca" Relationship="bancodedados.Model.id_usuario4" FromRole="usuario" ToRole="dadosseguranca" />
+          <NavigationProperty Name="followusuario" Relationship="bancodedados.Model.id_usuario3" FromRole="usuario" ToRole="followusuario" />
+          <NavigationProperty Name="followusuario1" Relationship="bancodedados.Model.usuario_id_usuario1" FromRole="usuario" ToRole="followusuario" />
+          <NavigationProperty Name="notificacao" Relationship="bancodedados.Model.id_usuario1" FromRole="usuario" ToRole="notificacao" />
+          <NavigationProperty Name="notificacao1" Relationship="bancodedados.Model.usuario_id_usuario" FromRole="usuario" ToRole="notificacao" />
+          <NavigationProperty Name="post" Relationship="bancodedados.Model.id_usuario" FromRole="usuario" ToRole="post" />
+          <NavigationProperty Name="sobre" Relationship="bancodedados.Model.id_usuario2" FromRole="usuario" ToRole="sobre" />
+          <NavigationProperty Name="usuariomensagem" Relationship="bancodedados.Model.id_usuariodestinatario" FromRole="usuario" ToRole="usuariomensagem" />
+          <NavigationProperty Name="usuariomensagem1" Relationship="bancodedados.Model.id_usuarioremetente1" FromRole="usuario" ToRole="usuariomensagem" />
+        </EntityType>
+        <EntityType Name="usuariomensagem">
+          <Key>
+            <PropertyRef Name="id_usuarioremetente" />
+            <PropertyRef Name="id_usuariodestinatario" />
+            <PropertyRef Name="id_mensagem" />
+          </Key>
+          <Property Name="id_usuarioremetente" Type="Int32" Nullable="false" />
+          <Property Name="id_usuariodestinatario" Type="Int32" Nullable="false" />
+          <Property Name="id_mensagem" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="mensagem" Relationship="bancodedados.Model.id_mensagem" FromRole="usuariomensagem" ToRole="mensagem" />
+          <NavigationProperty Name="usuario" Relationship="bancodedados.Model.id_usuariodestinatario" FromRole="usuariomensagem" ToRole="usuario" />
+          <NavigationProperty Name="usuario1" Relationship="bancodedados.Model.id_usuarioremetente1" FromRole="usuariomensagem" ToRole="usuario" />
+        </EntityType>
+        <Association Name="id_post">
+          <End Type="bancodedados.Model.post" Role="post" Multiplicity="1" />
+          <End Type="bancodedados.Model.comentario" Role="comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="post">
+              <PropertyRef Name="id_post" />
+            </Principal>
+            <Dependent Role="comentario">
+              <PropertyRef Name="id_post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuarioremetente">
+          <End Type="bancodedados.Model.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bancodedados.Model.comentario" Role="comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="comentario">
+              <PropertyRef Name="id_usuarioremetente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuario4">
+          <End Type="bancodedados.Model.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bancodedados.Model.dadosseguranca" Role="dadosseguranca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="dadosseguranca">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuario3">
+          <End Type="bancodedados.Model.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bancodedados.Model.followusuario" Role="followusuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="followusuario">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_id_usuario1">
+          <End Type="bancodedados.Model.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bancodedados.Model.followusuario" Role="followusuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="followusuario">
+              <PropertyRef Name="usuario_id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_mensagem">
+          <End Type="bancodedados.Model.mensagem" Role="mensagem" Multiplicity="1" />
+          <End Type="bancodedados.Model.usuariomensagem" Role="usuariomensagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mensagem">
+              <PropertyRef Name="id_mensagem" />
+            </Principal>
+            <Dependent Role="usuariomensagem">
+              <PropertyRef Name="id_mensagem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuario1">
+          <End Type="bancodedados.Model.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bancodedados.Model.notificacao" Role="notificacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="notificacao">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_id_usuario">
+          <End Type="bancodedados.Model.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bancodedados.Model.notificacao" Role="notificacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="notificacao">
+              <PropertyRef Name="usuario_id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuario">
+          <End Type="bancodedados.Model.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bancodedados.Model.post" Role="post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuario2">
+          <End Type="bancodedados.Model.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bancodedados.Model.sobre" Role="sobre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="sobre">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuariodestinatario">
+          <End Type="bancodedados.Model.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bancodedados.Model.usuariomensagem" Role="usuariomensagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="usuariomensagem">
+              <PropertyRef Name="id_usuariodestinatario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_usuarioremetente1">
+          <End Type="bancodedados.Model.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bancodedados.Model.usuariomensagem" Role="usuariomensagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="usuariomensagem">
+              <PropertyRef Name="id_usuarioremetente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bancodedadosModelStoreContainer" CdmEntityContainer="bancodedadosEntities">
+          <EntitySetMapping Name="comentario">
+            <EntityTypeMapping TypeName="bancodedados.Model.comentario">
+              <MappingFragment StoreEntitySet="comentario">
+                <ScalarProperty Name="comentariocontent" ColumnName="comentariocontent" />
+                <ScalarProperty Name="datacomentario" ColumnName="datacomentario" />
+                <ScalarProperty Name="id_usuarioremetente" ColumnName="id_usuarioremetente" />
+                <ScalarProperty Name="id_post" ColumnName="id_post" />
+                <ScalarProperty Name="id_comentario" ColumnName="id_comentario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dadosseguranca">
+            <EntityTypeMapping TypeName="bancodedados.Model.dadosseguranca">
+              <MappingFragment StoreEntitySet="dadosseguranca">
+                <ScalarProperty Name="telefonerecuperacao" ColumnName="telefonerecuperacao" />
+                <ScalarProperty Name="emailrecuperacao" ColumnName="emailrecuperacao" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_dadosseguranca" ColumnName="id_dadosseguranca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="followusuario">
+            <EntityTypeMapping TypeName="bancodedados.Model.followusuario">
+              <MappingFragment StoreEntitySet="followusuario">
+                <ScalarProperty Name="datafollow" ColumnName="datafollow" />
+                <ScalarProperty Name="usuario_id_usuario" ColumnName="usuario_id_usuario" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mensagem">
+            <EntityTypeMapping TypeName="bancodedados.Model.mensagem">
+              <MappingFragment StoreEntitySet="mensagem">
+                <ScalarProperty Name="datamensagem" ColumnName="datamensagem" />
+                <ScalarProperty Name="visualizadomensagem" ColumnName="visualizadomensagem" />
+                <ScalarProperty Name="contentmensagem" ColumnName="contentmensagem" />
+                <ScalarProperty Name="id_mensagem" ColumnName="id_mensagem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notificacao">
+            <EntityTypeMapping TypeName="bancodedados.Model.notificacao">
+              <MappingFragment StoreEntitySet="notificacao">
+                <ScalarProperty Name="dataacao" ColumnName="dataacao" />
+                <ScalarProperty Name="ds_acao" ColumnName="ds_acao" />
+                <ScalarProperty Name="usuario_id_usuario" ColumnName="usuario_id_usuario" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_notificacao" ColumnName="id_notificacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="post">
+            <EntityTypeMapping TypeName="bancodedados.Model.post">
+              <MappingFragment StoreEntitySet="post">
+                <ScalarProperty Name="lon" ColumnName="lon" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="datapostagem" ColumnName="datapostagem" />
+                <ScalarProperty Name="contentpost" ColumnName="contentpost" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_post" ColumnName="id_post" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sobre">
+            <EntityTypeMapping TypeName="bancodedados.Model.sobre">
+              <MappingFragment StoreEntitySet="sobre">
+                <ScalarProperty Name="biografia" ColumnName="biografia" />
+                <ScalarProperty Name="relacionamento" ColumnName="relacionamento" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="datanascimento" ColumnName="datanascimento" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_sobre" ColumnName="id_sobre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="bancodedados.Model.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="linkfoto" ColumnName="linkfoto" />
+                <ScalarProperty Name="emailusuario" ColumnName="emailusuario" />
+                <ScalarProperty Name="senhausuario" ColumnName="senhausuario" />
+                <ScalarProperty Name="nicknameusuario" ColumnName="nicknameusuario" />
+                <ScalarProperty Name="nomeusuario" ColumnName="nomeusuario" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuariomensagem">
+            <EntityTypeMapping TypeName="bancodedados.Model.usuariomensagem">
+              <MappingFragment StoreEntitySet="usuariomensagem">
+                <ScalarProperty Name="id_mensagem" ColumnName="id_mensagem" />
+                <ScalarProperty Name="id_usuariodestinatario" ColumnName="id_usuariodestinatario" />
+                <ScalarProperty Name="id_usuarioremetente" ColumnName="id_usuarioremetente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

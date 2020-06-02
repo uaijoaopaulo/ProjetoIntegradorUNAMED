@@ -1,0 +1,180 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="_LayoutPrincipal.master.cs" Inherits="ProjetoIntegrador.View._LayoutPrincipal" %>
+
+<!DOCTYPE html>
+<link rel="icon" type="image/png" href="https://i.imgur.com/0QEPNLa.png" />
+<link href="../Style/EstiloPaginaPrincipal.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>unNamed</title>
+    <script src="../Style/JavaScriptPaginaPrincipal.js"></script>
+    <script src="../Style/JavaScriptLocalizacao.js"></script>
+    <script type="text/javascript">
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        }
+        else { $("#message").html("A Geolocalização não é suportada neste navegador."); }
+        function showPosition(position) {
+            var latlondata = position.coords.latitude + "," + position.coords.longitude;
+            var latlon = "Latitude : " + position.coords.latitude + " <br/> " + "Longitude : " + position.coords.longitude;
+            $("[id*=hdnLocalizacaoLat]").val(position.coords.latitude);
+            $("[id*=hdnLocalizacaoLon]").val(position.coords.longitude);
+        }
+        function showError(error) {
+            if (error.code == 1) {
+                $("#message").html("Usuário negou a requisição para geolocalziação.");
+            }
+            else if (error.code == 2) {
+                $("#message").html("Localização informada esta indisponível.");
+            }
+            else if (error.code == 3) {
+                $("#message").html("A requisição para obter a localização do usuário expirou.");
+            }
+            else {
+                $("#message").html("Erro desconhecido.");
+            }
+        }
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:Timer ID="tmrCounterNotificacoes" runat="server" Interval="1500" OnTick="tmrCounterNotificacoes_Tick"></asp:Timer>
+        <asp:HiddenField ID="hdnLocalizacaoLat" runat="server" />
+        <asp:HiddenField ID="hdnLocalizacaoLon" runat="server" />
+        <asp:Panel ID="pnlConfirmacao" runat="server" CssClass="BlockBox font">
+            <div class="">
+                <asp:Label ID="lblMensagemShow" runat="server" Text="#mensagem"></asp:Label>
+                <br />
+                <div>
+                    <asp:Button ID="bttSim" runat="server" Text="Sim" OnClick="bttSim_Click" />
+                    <asp:Button ID="bttNao" runat="server" Text="Não" OnClick="bttNao_Click" />
+                </div>
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="pnlAreaOpcoes" runat="server" CssClass="DivAreaOpcoes font">
+            <asp:LinkButton ID="lnkAjuda" runat="server" CssClass="botaoOpcoes" OnCommand="lnkAjuda_Command">Ajuda</asp:LinkButton>
+            <asp:LinkButton ID="lnkSobre" runat="server" CssClass="botaoOpcoes" OnCommand="lnkSobre_Command">Sobre</asp:LinkButton>
+            <asp:LinkButton ID="lnkSair" runat="server" OnCommand="lnkSair_Command" CssClass="botaoOpcoes">Sair</asp:LinkButton>
+            <asp:UpdatePanel ID="pdtOpcoes" runat="server">
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="lnkClickOpcoes" EventName="Command" />
+                </Triggers>
+                <ContentTemplate>
+                    <asp:LinkButton ID="lnkClickOpcoes" runat="server" OnCommand="lnkClickOpcoes_Command">
+                        <asp:Label ID="lblunNamed" runat="server" Text="unN ▼ med"></asp:Label>
+                    </asp:LinkButton>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </asp:Panel>
+        <asp:Panel ID="pnlRetornoPesquisa" runat="server" CssClass="AreaRetornoPesquisa">
+            <asp:UpdatePanel ID="pdtPesquisa" runat="server" UpdateMode="Conditional">
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="tmrCounterNotificacoes" EventName="Tick" />
+                </Triggers>
+                <ContentTemplate>
+                    <div class="ResultadosPesquisa">
+                        <asp:Repeater ID="rptPesquisa" runat="server">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkUsuarioPesquisado" runat="server" CommandArgument='<%# Eval("id_usuario") %>' OnCommand="lnkPerfilUsuarioPesquisado_Command" CssClass="lnkPerfil">
+                                    <asp:Panel ID="pnlAreaUsuarioPesquisado" runat="server" CssClass="UsuarioPesquisado font">
+                                        <asp:Image ID="imgUsuarioPesquisado" runat="server" ImageUrl='<%# Eval("LinkfotoUsuario") %>' CssClass="imgAreaMensagemNotificacao" />
+                                        <div class="DivNomeUsuarioPesquisado">
+                                            <asp:Label ID="lblNicknameUsuario" runat="server" Text='<%# Eval("NicknameUsuario") %>' CssClass="NomeAreaMensagemNotificacao"></asp:Label>
+                                            <br />
+                                            <asp:Label ID="lblNomeUsuario" runat="server" Text='<%# Eval("NomeUsuario") %>' CssClass="ContentAreaMensagemNotificacao"></asp:Label>
+                                        </div>
+                                    </asp:Panel>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </asp:Panel>
+        <asp:Panel runat="server" ID="pnlCabecalho" CssClass="Cabecalho font">
+            <div>
+                <asp:ImageButton ID="imgPerfil" runat="server" CssClass="imgPerfil" ImageUrl="https://i.imgur.com/z61Znry.png" OnClick="imgPerfil_Click" TabIndex="0" />
+                <asp:LinkButton ID="lnkNomePerfil" runat="server" Text="" CssClass="lblNomePerfil" OnClick="lnkNomePerfil_Click"></asp:LinkButton>
+                <div class="divpesquisa">
+                    <asp:TextBox ID="txtPesquisar" runat="server" CssClass="txtPesquisar" placeholder="Pesquise" autocomplete="off" TabIndex="1"></asp:TextBox>
+                </div>
+            </div>
+        </asp:Panel>
+        <div id="menu" class="font">
+            <asp:ImageButton ID="imgPaginainicial" runat="server" CssClass="img imgPaginaInicial" ImageUrl="https://i.imgur.com/vqeTXmn.png" OnClick="imgPaginainicial_Click" title="Página Inicial" />
+            <br />
+            <asp:ImageButton ID="imgDescobrimentoLocal" runat="server" CssClass="img imgDescobrimentoLocal" ImageUrl="https://i.imgur.com/CWK1Css.png" OnClick="imgDescobrimentoLocal_Click" title="Descobrimento Local" />
+            <br />
+            <asp:ImageButton ID="imgNotificacao" runat="server" CssClass="img imgNotificacao" ImageUrl="https://i.imgur.com/tuu8P3o.png" title="Notificações" />
+            <br />
+            <asp:ImageButton ID="imgMensagem" runat="server" CssClass="img imgMensagem" ImageUrl="https://i.imgur.com/9TbkcRo.png" title="Mensagens" />
+        </div>
+        <asp:Panel ID="pnlNotificacao" runat="server" CssClass="pnlNotificacoes">
+            <asp:Label ID="lblNotificacao" runat="server" Text="Notificações:" CssClass="tituloNotificacoes font"></asp:Label>
+            <asp:UpdatePanel ID="pdtAreaNotificacao" runat="server" UpdateMode="Always">
+                <ContentTemplate>
+                    <div class="ContentMensagemNotificacao">
+                        <asp:Repeater ID="rptNotificacao" runat="server">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkUsuarioNotificacao" runat="server" CommandArgument='<%# Eval("idRemetenteNotificacao") %>' OnCommand="lnkUsuarioNotificacao_Command" CssClass="lnkPerfil">
+                                    <asp:Panel ID="pnlAreaNotificacao" runat="server" CssClass="AreaNotificacao font">
+                                        <asp:Image ID="imgPerfilNotificacao" runat="server" ImageUrl='<%# Eval("LinkfotoUsuarioNotificacao") %>' CssClass="imgAreaMensagemNotificacao" />
+                                        <div class="DivNomeAreaMensagemNotificacao">
+                                            <asp:Label ID="lblNomeNotificacao" runat="server" Text='<%# Eval("NicknameUsuarioNotificacao") %>' CssClass="NomeAreaMensagemNotificacao"></asp:Label>
+                                            <br />
+                                            <asp:Label ID="lblDSNotificacao" runat="server" Text='<%# Eval("DsNotificacao") %>' CssClass="ContentAreaMensagemNotificacao"></asp:Label>
+                                        </div>
+                                        <div class="DivDataAreaMensagemNotificacao">
+                                            <asp:Label ID="lblHora" runat="server" Text='<%# Eval("HoraNotificacao") %>'></asp:Label>
+                                            <br />
+                                            <asp:Label ID="lblData" runat="server" Text='<%# Eval("DataNotificacao") %>'></asp:Label>
+                                            <br />
+                                            <asp:Label ID="lblAno" runat="server" Text='<%# Eval("AnoNotificacao") %>'></asp:Label>
+                                        </div>
+                                    </asp:Panel>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </asp:Panel>
+        <asp:Panel ID="pnlMensagem" runat="server" CssClass="pnlMensagem font">
+            <asp:Label ID="lblMensagem" runat="server" Text="Mensagens:" CssClass="tituloNotificacoes font"></asp:Label>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
+                <ContentTemplate>
+                    <div class="ContentMensagemNotificacao">
+                        <asp:Repeater ID="rptMensagem" runat="server">
+                            <ItemTemplate>
+                                <asp:Panel ID="pnlAreaMensagem" runat="server" CssClass="AreaMensagem font">
+                                    <asp:Image ID="imgPerfilMensagem" runat="server" ImageUrl='<%# Eval("LinkfotoUsuarioMensagem") %>' CssClass="imgAreaMensagemNotificacao" />
+                                    <div class="DivNomeAreaMensagemNotificacao">
+                                        <asp:Label ID="lblNomeMensagem" runat="server" Text='<%# Eval("NicknameUsuarioMensagem") %>' CssClass="NomeAreaMensagemNotificacao"></asp:Label>
+                                        <br />
+                                        <asp:Label ID="lblPreviaMensagem" runat="server" Text='<%# Eval("ConteudoMensagem") %>' CssClass="ContentAreaMensagemNotificacao"></asp:Label>
+                                    </div>
+                                    <div class="DivDataAreaMensagemNotificacao">
+                                        <asp:Label ID="lblHora" runat="server" Text='<%# Eval("HoraMensagem") %>'></asp:Label>
+                                        <br />
+                                        <asp:Label ID="lblData" runat="server" Text='<%# Eval("DataMensagem") %>'></asp:Label>
+                                        <br />
+                                        <asp:Label ID="lblAno" runat="server" Text='<%# Eval("AnoMensagem") %>'></asp:Label>
+                                    </div>
+                                </asp:Panel>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </asp:Panel>
+        <asp:Panel runat="server" ID="pnlTimeline" CssClass="font">
+            <%--timeline que se ajusta com o clique no lugar do perfil--%>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </asp:Panel>
+    </form>
+</body>
+</html>

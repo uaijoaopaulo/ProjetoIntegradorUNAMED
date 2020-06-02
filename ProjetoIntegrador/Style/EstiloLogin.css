@@ -1,0 +1,182 @@
+﻿body {
+    margin-right: 0px;
+    background-image: url("https://i.imgur.com/5QqFeHt.png");
+    overflow: hidden;
+}
+/*.Background {
+    position: fixed;
+    right: 0px;
+    left: 0px;
+    top: 0px;
+    height: -webkit-fill-available;
+    background-repeat: repeat;
+    background-image: linear-gradient(to right top, #000000, #000000, #a800ff);
+    background-image: url("https://i.imgur.com/5QqFeHt.png");
+}*/
+.PanelLogin {
+    background-color: #ffffff;
+    margin-bottom: 4.5%;
+    margin-right: 62.8%;
+    margin-top: 4.5%;
+    margin-left: 5.2%;
+    height: 70%;
+    width: -webkit-fill-available;
+    float: right;
+    position: fixed;
+    border-radius: 15px;
+    box-shadow: 0px 0px 9px 1px #999;
+    padding: 2%;
+    display: flow-root;
+}
+
+.backgroundname {
+    float: right;
+    position: absolute;
+    margin-top: 10%;
+    margin-right: 15%;
+    margin-left: 50%;
+    margin-bottom: 10%;
+    height: 58%;
+    width: -webkit-fill-available;
+    user-select: none;
+}
+
+.lblun {
+    background: linear-gradient(to right top, #000000, #000000, #000000, #a800ff, #a800ff);
+    position: fixed;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-size: 300pt;
+    top: 0px;
+}
+
+.lblnamed {
+    color: black;
+    position: relative;
+    font-size: 95pt;
+    top: 51%;
+    left: 3.5%;
+}
+
+.font {
+    font-family: 'Roboto', sans-serif;
+}
+
+.tmnLbl {
+    font-size: 155%;
+    user-select: none;
+}
+
+.txtLogin {
+    Width: -webkit-fill-available;
+    height: 45px;
+    border-width: 2px;
+    border-style: ridge;
+    border-color: #a800ff;
+    background-color: #d5abea;
+    color: white;
+    font-size: 14pt;
+    margin-top: 3%;
+    -webkit-border-radius: 5px;
+    padding-left: 2%;
+}
+
+    .txtLogin:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.lblEmailLogin {
+    Color: #000000;
+    user-select: none;
+}
+
+.lblLogin {
+    Color: #9700e4;
+    font-size: 12pt;
+    user-select: none;
+}
+
+.lblAviso {
+    color: red;
+    Font-Size: 10pt;
+    user-select: none;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.Button {
+    color: white;
+    margin-top: 5px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #9700e4;
+    border-color: #9700e4;
+    Height: 45px;
+    Width: -webkit-fill-available;
+    Font-Size: 11pt;
+}
+
+    .Button:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.shadow {
+    -webkit-box-shadow: 0px 0px 10px #999 inset;
+    -moz-box-shadow: 0px 0px 10px #999 inset;
+    box-shadow: 0px 0px 10px #999;
+}
+
+.lblEsqueceu {
+    font-size: 14px;
+    Color: #4285F4;
+}
+
+.nome {
+    color: white;
+    font-size: 30pt;
+}
+
+.loader {
+    margin: 0 0 2em;
+    height: 100px;
+    width: 20%;
+    text-align: center;
+    padding: 1em;
+    margin: 0 auto 1em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.divButtons {
+    width: -webkit-fill-available;
+    max-width: 87.5%;
+    position: absolute;
+    bottom: 5%;
+}
+
+.rodape {
+    color: white;
+    background-color: rgb(044, 044, 044, 0.5);
+    position: fixed;
+    width: -webkit-fill-available;
+    height: 20px;
+    right: 0px;
+    bottom: 0px;
+    text-align: right;
+}
+
+.rodapetext {
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.txtLogin::-webkit-input-placeholder {
+    color: white;
+}

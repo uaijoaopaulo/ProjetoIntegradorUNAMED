@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="17725172c2014a7bb2c544916a1207df" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="bancodedados.Model.comentario" Width="1.5" PointX="5.25" PointY="10.75" />
+        <EntityTypeShape EntityType="bancodedados.Model.dadosseguranca" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="bancodedados.Model.followusuario" Width="1.5" PointX="3" PointY="14" />
+        <EntityTypeShape EntityType="bancodedados.Model.mensagem" Width="1.5" PointX="3.75" PointY="2" />
+        <EntityTypeShape EntityType="bancodedados.Model.notificacao" Width="1.5" PointX="3" PointY="19.625" />
+        <EntityTypeShape EntityType="bancodedados.Model.post" Width="1.5" PointX="3" PointY="10.75" />
+        <EntityTypeShape EntityType="bancodedados.Model.sobre" Width="1.5" PointX="3" PointY="22.75" />
+        <EntityTypeShape EntityType="bancodedados.Model.usuario" Width="1.5" PointX="0.75" PointY="9.875" />
+        <EntityTypeShape EntityType="bancodedados.Model.usuariomensagem" Width="1.5" PointX="6" PointY="7.875" />
+        <AssociationConnector Association="bancodedados.Model.id_post" />
+        <AssociationConnector Association="bancodedados.Model.id_usuarioremetente" />
+        <AssociationConnector Association="bancodedados.Model.id_usuario4" />
+        <AssociationConnector Association="bancodedados.Model.id_usuario3" />
+        <AssociationConnector Association="bancodedados.Model.usuario_id_usuario1" />
+        <AssociationConnector Association="bancodedados.Model.id_mensagem" />
+        <AssociationConnector Association="bancodedados.Model.id_usuario1" />
+        <AssociationConnector Association="bancodedados.Model.usuario_id_usuario" />
+        <AssociationConnector Association="bancodedados.Model.id_usuario" />
+        <AssociationConnector Association="bancodedados.Model.id_usuario2" />
+        <AssociationConnector Association="bancodedados.Model.id_usuariodestinatario" />
+        <AssociationConnector Association="bancodedados.Model.id_usuarioremetente1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

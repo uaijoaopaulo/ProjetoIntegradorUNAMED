@@ -1,0 +1,915 @@
+﻿body {
+    /*background-image: linear-gradient(to bottom, #FFFFFF, #0d0c0c);*/
+    /*background-image: linear-gradient(to left top, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);*/
+    /*background-image:url("https://i.imgur.com/qzhQ5vA.png");*/
+    background-image: url("https://i.imgur.com/5QqFeHt.png");
+    background-repeat: repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+    body::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    body::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background: #a800ff;
+    }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background: #6c109c;
+        }
+
+.Cabecalho {
+    width: 100%;
+    height: 50px;
+    /*background-color: darkgray;*/
+    margin: 0px 0px 0px 0px;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+}
+
+#pnlTimeline {
+    position: sticky;
+    height: 100%;
+    width: -webkit-fill-available;
+    float: right;
+    margin-top: 43px;
+    margin-left: 47px;
+    margin-bottom: 13px;
+    background-color: white;
+    box-shadow: 0px 0px 9px 1px #999;
+    border-radius: 15px;
+    /*border-top-right-radius: 15px;*/
+    padding: 2% 2% 2% 2%;
+    transition: margin-left 0.7s;
+    min-height: 550px;
+    z-index: 3;
+}
+
+.toggleTimeline {
+    margin-left: 35% !important;
+}
+
+.font {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.imgPerfil {
+    border-radius: 50%;
+    margin: 5px 5px 5px 5px;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+    image-resolution: from-image;
+}
+
+    .imgPerfil:hover {
+        box-shadow: 0px 0px 7px 1px #999;
+    }
+
+.img {
+    margin: 5px 5px 5px 5px;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+}
+
+    .img:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.imgDescobrimentoLocal {
+    border-radius: 50%;
+}
+
+.imgPaginaInicial {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-left-radius: 15%;
+    border-bottom-right-radius: 15%;
+}
+
+.imgNotificacao {
+    border-top-left-radius: 30%;
+    border-top-right-radius: 30%;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.imgMensagem {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 15%;
+}
+
+.img:hover {
+    box-shadow: 0px 0px 7px 1px #999;
+}
+
+#menu {
+    position: fixed;
+    top: 50px;
+    left: 0px;
+}
+
+.txtPesquisar {
+    padding-left: 2%;
+    top: 5px;
+    margin-right: 2.6px;
+    width: 265px;
+    height: 40px;
+    border-radius: 10px;
+    border-color: #a800ff;
+    font-size: 18px;
+    border-style: outset;
+}
+
+    .txtPesquisar:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+    .txtPesquisar::-webkit-input-placeholder {
+        opacity: 0.5;
+    }
+
+.divpesquisa {
+    margin-top: 2px;
+    margin-right: 5px;
+    display: flex;
+    float: right;
+    text-align: center;
+}
+
+.postagemBox {
+    border-radius: 10px;
+    margin: 7px;
+    box-shadow: 0px 0px 1px 1px #999;
+    background-color: white;
+    color: black;
+}
+
+.comentarioBox {
+    border-radius: 10px;
+    margin: 7px 30px 7px 70px;
+    box-shadow: 0px 0px 1px 1px #999;
+    background-color: white;
+    color: black;
+    padding-bottom: 0.02px;
+}
+
+.divPostTimeline {
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 15px;
+    border-color: #8c8c8c30;
+    background-color: #e2e2e22b;
+    margin: 7px;
+}
+
+.dataPost {
+    font-size: 11px;
+    color: grey;
+    display: flex;
+}
+
+.imgPostagemPerfil {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    transition: width 0.4s, height 0.4s;
+    transition-timing-function: ease;
+}
+
+    .imgPostagemPerfil:hover {
+        width: 50px;
+        height: 50px;
+    }
+
+.boxHeader {
+    display: inline-flex;
+    align-items: center;
+    width: -webkit-fill-available;
+    padding-right: 0.5%;
+}
+
+.divHeader {
+    width: -webkit-fill-available;
+}
+
+.divHeader2 {
+    float: right;
+}
+
+.bodyPostagem {
+    margin: 0px 7px 7px 2%;
+    /*margin-left: 2%;
+    margin-bottom: 7px;
+    margin-right: 7px;
+    margin-top: 0px;*/
+}
+
+.funcaoPostagem {
+    background-color: whitesmoke;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: slategrey;
+    text-align: center;
+    cursor: pointer;
+}
+
+.bttComentar {
+    color: dimgray;
+    border: none;
+    background: none;
+    width: -webkit-fill-available;
+    cursor: pointer;
+}
+
+    .bttComentar:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.areaPostagem {
+    margin: 0px 7px;
+    width: -webkit-fill-available;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 1px #999;
+    display: inline-flex;
+}
+
+.txtNovoPostagem {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-color: #a800ff;
+    width: -webkit-fill-available;
+    font-size: 14pt;
+    border-right-width: 0;
+    border-style: outset;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    padding: 1.5%;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+    .txtNovoPostagem:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.txtNovoPost::-webkit-input-placeholder {
+    opacity: 0.5;
+}
+
+.bttNovoPost {
+    float: right;
+    width: 5%;
+    height: 66px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-color: #a800ff;
+    background-color: white;
+    padding: 1px 3px;
+    border-left-width: 0px;
+    min-width: 50px;
+}
+
+    .bttNovoPost:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.tituloNotificacoes {
+    background: linear-gradient(to right top, #000000, #a800ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-size: 20pt;
+    margin-bottom: 2%;
+}
+
+.pnlMensagem {
+    position: fixed;
+    width: -webkit-fill-available;
+    height: 82.5%;
+    /*margin: 43px 47px 30px 66%;*/
+    margin-top: 43px;
+    margin-left: 47px;
+    margin-right: 66%;
+    margin-bottom: 30px; /*era pra ser 13px sei lá, igual a timeline*/
+    background-color: white;
+    box-shadow: 0px 0px 9px 1px #999;
+    border-radius: 15px;
+    padding: 1.5%;
+    opacity: 0.0;
+    transition: opacity 1.3s;
+    z-index: 1;
+}
+
+.toggleMensagem {
+    opacity: 1.0 !important;
+    z-index: 2;
+}
+
+.pnlNotificacoes {
+    position: fixed;
+    width: -webkit-fill-available;
+    height: 82.5%;
+    /*margin: 43px 47px 30px 66%;*/
+    margin-top: 43px;
+    margin-left: 47px;
+    margin-right: 66%;
+    margin-bottom: 30px; /*era pra ser 13px sei lá, igual a timeline*/
+    background-color: white;
+    box-shadow: 0px 0px 9px 1px #999;
+    border-radius: 15px;
+    padding: 1.5%;
+    opacity: 0.0;
+    transition: opacity 1.3s;
+    z-index: 1;
+}
+
+.toggleNotificacoes {
+    opacity: 1.0 !important;
+    z-index: 2;
+}
+
+.ContentNotificacoes {
+    background-color: whitesmoke;
+    height: 95%;
+    width: -webkit-fill-available;
+}
+
+.areaPerfil1 {
+    width: -webkit-fill-available;
+    margin: 7px 7px 1% 7px;
+}
+
+.areaPerfil2 {
+    width: -webkit-fill-available;
+    margin-left: 20%;
+    padding-top: 7%;
+}
+
+.imgdoPerfil {
+    width: 20%;
+    min-width: 200px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: white;
+    margin-left: 1%;
+    box-shadow: 0px 0px 2px 1px #999;
+}
+
+.lblNickname {
+    font-size: 24pt;
+    margin-left: 3.5vw;
+}
+
+.BttsPerfil {
+    float: right;
+    margin-left: 0.5%;
+    border-radius: 15px;
+    height: 37px;
+    background-color: #a800ff;
+    border-color: #a800ff;
+    color: white;
+    font-size: 12pt;
+    cursor: pointer;
+}
+
+    .BttsPerfil:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.areaDescricoes {
+    height: 7.5vw;
+    background-image: linear-gradient(to right top, #000000, #000000, #000000, #a800ff);
+    border-radius: 15px;
+    padding: 1%;
+    display: flex;
+    color: white;
+    padding-left: 20%;
+}
+
+.Descricoes {
+    align-self: flex-end;
+    text-align: center;
+    margin-left: 1%;
+    margin-right: 6%;
+}
+
+.nomePerfil {
+    margin-left: 3vw;
+    place-self: flex-start;
+    position: absolute;
+    font-size: 24pt;
+    float: left;
+    text-shadow: 0px 0px 2px #000000;
+}
+
+.GrupoDescricoes {
+    display: flex;
+    margin-left: 2vw;
+}
+
+.BlockBox {
+    position: fixed;
+    background-color: rgb(044,044,044,0.7);
+    /*display: flex;*/
+    top: 0px;
+    left: 0px;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    display: none;
+    transition: display 0.7s ease;
+    z-index: 1;
+}
+
+.BlockBoxConfirmacao {
+    position: fixed;
+    background-color: rgb(044,044,044,0.7);
+    top: 0px;
+    left: 0px;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    display: none;
+    transition: display 0.7s ease;
+    z-index: 100;
+}
+
+.divConfirmacao {
+    font-size: 16pt;
+    width: 20%;
+    height: 20%;
+    margin: auto;
+    background-color: white;
+    border-radius: 15px;
+    padding: 1%;
+    display: grid;
+    text-align: center;
+    border-style: outset;
+    border-width: 2px;
+    border-color: #a800ff;
+}
+
+.divConfirmacaoButao {
+    display: inline-grid;
+}
+
+.botaoConfirmacao {
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    color: black;
+    font-size: 14pt;
+    cursor: pointer;
+}
+
+.Sim {
+    border-color: green;
+    background-color: #9ade9a;
+}
+
+.Nao {
+    margin-top: 0.5%;
+    border-color: red;
+    background-color: #ecb2b2;
+}
+
+.ComentarioAreainterna {
+    background-color: white;
+    border-radius: 15px;
+    position: fixed;
+    place-self: center;
+    margin: 2% 20%;
+    width: -webkit-fill-available;
+    padding: 2%;
+    top: 0px;
+    bottom: 0px;
+}
+
+.AreaComentar {
+    display: flex;
+}
+
+.AreaComentarios {
+    height: 68.5%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+    .AreaComentarios::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .AreaComentarios::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .AreaComentarios::-webkit-scrollbar-thumb {
+        background: #a800ff;
+    }
+
+        .AreaComentarios::-webkit-scrollbar-thumb:hover {
+            background: #6c109c;
+        }
+.AreaComentariosIV {
+    height: 68.5%;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 270px;
+}
+    .AreaComentariosIV::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .AreaComentariosIV::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .AreaComentariosIV::-webkit-scrollbar-thumb {
+        background: #a800ff;
+    }
+
+        .AreaComentariosIV::-webkit-scrollbar-thumb:hover {
+            background: #6c109c;
+        }
+
+.imgFechaComentarios {
+    width: 20px;
+    float: right;
+}
+
+.bttNovoComentario {
+    float: right;
+    width: 5%;
+    height: 66px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-color: #a800ff;
+    background-color: white;
+    padding: 1px 3px;
+    border-left-width: 0px;
+    min-width: 70px;
+}
+
+    .bttNovoComentario:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.AreaNotificacao {
+    width: -webkit-fill-available;
+    display: flex;
+    box-shadow: 0px 0px 5px 1px #999;
+    border-radius: 15px;
+    padding: 2%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+}
+
+.AreaMensagem {
+    width: -webkit-fill-available;
+    display: flex;
+    box-shadow: 0px 0px 5px 1px #999;
+    border-radius: 15px;
+    padding: 2%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+}
+
+.imgAreaMensagemNotificacao {
+    height: 19%;
+    width: 19%;
+    border-radius: 50%;
+    place-self: center;
+    margin-right: 2.4%;
+    background-color: white;
+    cursor: pointer;
+}
+
+.DivNomeAreaMensagemNotificacao {
+    width: -webkit-fill-available;
+    color: black;
+}
+
+.NomeAreaMensagemNotificacao {
+    font-size: 14pt;
+}
+
+.ContentAreaMensagemNotificacao {
+    font-size: 10pt;
+}
+
+.DivDataAreaMensagemNotificacao {
+    width: auto;
+    float: right;
+    font-size: 9pt;
+    align-self: center;
+    text-align: center;
+}
+
+.ContentMensagemNotificacao {
+    overflow: scroll;
+    overflow-x: hidden;
+    left: 1px;
+    padding-left: 4%;
+    padding-right: 4%;
+    position: absolute;
+    height: 86.5%;
+}
+
+    .ContentMensagemNotificacao::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .ContentMensagemNotificacao::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .ContentMensagemNotificacao::-webkit-scrollbar-thumb {
+        background: #a800ff;
+    }
+
+        .ContentMensagemNotificacao::-webkit-scrollbar-thumb:hover {
+            background: #6c109c;
+        }
+
+.bodyComentario {
+    margin: 0px 7px 7px 2%;
+}
+
+.AreaRetornoPesquisa {
+    display: none;
+    position: fixed;
+    z-index: 4;
+    background-color: white;
+    right: 9px;
+    top: 50px;
+    width: 263px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 1px #999;
+    border-style: outset;
+    border-color: #a800ff;
+    border-width: 2px;
+    height: 0px;
+    max-height: 90%;
+    padding: 0.5% 0%;
+    transition: display 0.5s ease;
+}
+
+.toggleAreaRetornoPesquisa {
+    display: unset !important;
+    height: 50vh !important;
+}
+
+.ResultadosPesquisa {
+    padding: 0px 1% 0px 2.5%;
+    overflow: scroll;
+    overflow-x: hidden;
+    position: absolute;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+}
+
+    .ResultadosPesquisa::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .ResultadosPesquisa::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .ResultadosPesquisa::-webkit-scrollbar-thumb {
+        background: #a800ff;
+    }
+
+        .ResultadosPesquisa::-webkit-scrollbar-thumb:hover {
+            background: #6c109c;
+        }
+
+.UsuarioPesquisado {
+    width: -webkit-fill-available;
+    display: flex;
+    box-shadow: 0px 0px 5px 1px #999;
+    border-radius: 15px;
+    padding: 2%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    color: black;
+    cursor: pointer;
+}
+
+.imgUsuarioPesquisado {
+    height: 19%;
+    width: 19%;
+    border-radius: 50%;
+    margin-right: 2.4%;
+    background-color: white;
+}
+
+.DivNomeUsuarioPesquisado {
+    width: -webkit-fill-available;
+}
+
+.lnkPerfil {
+    color: black;
+    text-decoration: none;
+}
+
+    .lnkPerfil:visited {
+        color: black;
+        text-decoration: none;
+    }
+
+    .lnkPerfil:link {
+        color: black;
+        text-decoration: none;
+    }
+
+    .lnkPerfil:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.DivAreaOpcoes {
+    display: grid;
+    top: -101px;
+    position: fixed;
+    z-index: 4;
+    right: 280px;
+    background: white;
+    width: 160px;
+    height: 130px;
+    border-radius: 15px;
+    border-style: inset;
+    border-width: 2px;
+    border-color: #a800ff;
+    padding: 12px 2px 3px 2px;
+    transition: top 0.5s ease;
+    text-align: center;
+}
+
+.toggleAreaOpcoes {
+    top: -13px !important;
+}
+
+#lblunNamed {
+    background: linear-gradient(to right top, #000000, #a800ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-size: 27pt;
+    margin: 1% 0% 0% 1.3%;
+    height: 40px;
+    font-family: 'Roboto', sans-serif;
+    align-self: flex-end;
+    cursor: pointer;
+    word-spacing: -16px;
+}
+
+.botaoOpcoes {
+    cursor: pointer;
+    font-size: 18pt;
+    color: black;
+    text-decoration: none;
+}
+
+    .botaoOpcoes:visited {
+        cursor: pointer;
+        font-size: 18pt;
+        color: black;
+        text-decoration: none;
+    }
+
+    .botaoOpcoes:link {
+        cursor: pointer;
+        font-size: 18pt;
+        color: black;
+        text-decoration: none;
+    }
+
+    .botaoOpcoes:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+#lnkClickOpcoes {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    #lnkClickOpcoes:visited {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    #lnkClickOpcoes:link {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    #lnkClickOpcoes:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.lblNomePerfil {
+    position: fixed;
+    font-size: 20pt;
+    margin-top: 6.5px;
+    background: linear-gradient(to right top, #000000, #a800ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    cursor: pointer;
+}
+
+.botaoOpcoes:visited {
+    text-decoration: none;
+}
+
+.botaoOpcoes:link {
+    text-decoration: none;
+}
+
+.AreaSobre {
+    border-style: none;
+    border-radius: 15px;
+    border-color: #a800ff;
+    margin-top: 1px;
+    border-width: 2px;
+    padding: 1%;
+    width: -webkit-fill-available;
+    transition: height 0.4s ease;
+    transition: border-style 0.1s;
+    display: none;
+}
+
+.txtDistancia {
+    border-style: outset;
+    border-radius: 15px;
+    border-width: 2px;
+    border-color: #a800ff;
+    width: 50px;
+    float: right;
+    padding: 0px 0.5% 0px 0.5%;
+}
+
+    .txtDistancia:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.lblDistancia {
+    float: right;
+}
+
+.bttAtualizar {
+    float: right;
+    margin: 0px 3px;
+    border-style: outset;
+    border-radius: 15px;
+    border-color: #a800ff;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 9pt;
+    width: 70px;
+    cursor: pointer;
+}
+
+    .bttAtualizar:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }
+
+.bttExcluiPost {
+    width: 20px;
+    float: right;
+    opacity: 0.8;
+}
+
+    .bttExcluiPost:focus, input:focus, select:focus {
+        box-shadow: 0 0 0 0;
+        outline: 0;
+    }

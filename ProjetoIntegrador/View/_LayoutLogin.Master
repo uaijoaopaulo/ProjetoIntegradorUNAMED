@@ -1,0 +1,42 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="_LayoutLogin.Master.cs" Inherits="ProjetoIntegrador.View._Layout" %>
+
+<!DOCTYPE html>
+
+<link href="../Style/EstiloLogin.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+<link rel="icon" type="image/png" href="https://i.imgur.com/0QEPNLa.png" />
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Login unNamed</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <script type="text/javascript">
+        function ChamaPaginaSobre() {
+            window.location = "SobreView.aspx";
+        }
+        function ChamaPaginaAjuda() {
+            window.location = "AjudaView.aspx";
+        }
+    </script>
+    <form id="form1" runat="server">
+        <div class="backgroundname font">
+            <asp:Label ID="lblun" runat="server" Text="un" CssClass="lblun"></asp:Label>
+            <br />
+            <asp:Label ID="lblNamed" runat="server" Text="Named" CssClass="lblnamed"></asp:Label>
+        </div>
+        <asp:Panel ID="DivLogin" runat="server" CssClass="PanelLogin font">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </asp:Panel>
+    </form>
+    <footer>
+        <div class="rodape">
+            <asp:Label ID="lblAjuda" runat="server" Text="Ajuda" CssClass="rodapetext font"></asp:Label>
+            <asp:Label ID="lblSobre" runat="server" Text="Sobre" CssClass="rodapetext font"></asp:Label>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,24 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="_LayoutPaginaAssistente.master.cs" Inherits="ProjetoIntegrador.View._LayoutPaginaAssistente" %>
+
+<!DOCTYPE html>
+
+<link rel="icon" type="image/png" href="https://i.imgur.com/0QEPNLa.png" />
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+<link href="../Style/EstiloPaginaAssistente.css" rel="stylesheet" />
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:Label ID="lblNome" runat="server" Text="unNamed"></asp:Label>
+        <div class="DivConteudoPagina font">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
